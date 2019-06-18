@@ -1,5 +1,10 @@
 <script>
+  import * as utils from "./utils";
 
+  const grid = utils.generateGrid(3);
+  const filledGrid = utils.fillGrid(grid, 3);
+  const gridWithBlockInfo = utils.includeBlockInfo(filledGrid, 3);
+  const groupedGrid = utils.groupByBlock(gridWithBlockInfo);
 </script>
 
 <style>
@@ -12,7 +17,6 @@
     height: 80vh;
     left: 50%;
     position: absolute;
-    /* margin: 60px auto 0; */
     top: 50%;
     transform: translate(-50%, -50%);
     width: 80vh;
@@ -33,111 +37,11 @@
 </style>
 
 <div class="grid">
-  <div class="block">
-    <div class="cell">1</div>
-    <div class="cell">2</div>
-    <div class="cell">3</div>
-    <div class="cell">4</div>
-    <div class="cell">5</div>
-    <div class="cell">6</div>
-    <div class="cell">7</div>
-    <div class="cell">8</div>
-    <div class="cell">9</div>
-  </div>
-
-  <div class="block">
-    <div class="cell">1</div>
-    <div class="cell">2</div>
-    <div class="cell">3</div>
-    <div class="cell">4</div>
-    <div class="cell">5</div>
-    <div class="cell">6</div>
-    <div class="cell">7</div>
-    <div class="cell">8</div>
-    <div class="cell">9</div>
-  </div>
-
-  <div class="block">
-    <div class="cell">1</div>
-    <div class="cell">2</div>
-    <div class="cell">3</div>
-    <div class="cell">4</div>
-    <div class="cell">5</div>
-    <div class="cell">6</div>
-    <div class="cell">7</div>
-    <div class="cell">8</div>
-    <div class="cell">9</div>
-  </div>
-
-  <div class="block">
-    <div class="cell">1</div>
-    <div class="cell">2</div>
-    <div class="cell">3</div>
-    <div class="cell">4</div>
-    <div class="cell">5</div>
-    <div class="cell">6</div>
-    <div class="cell">7</div>
-    <div class="cell">8</div>
-    <div class="cell">9</div>
-  </div>
-
-  <div class="block">
-    <div class="cell">1</div>
-    <div class="cell">2</div>
-    <div class="cell">3</div>
-    <div class="cell">4</div>
-    <div class="cell">5</div>
-    <div class="cell">6</div>
-    <div class="cell">7</div>
-    <div class="cell">8</div>
-    <div class="cell">9</div>
-  </div>
-
-  <div class="block">
-    <div class="cell">1</div>
-    <div class="cell">2</div>
-    <div class="cell">3</div>
-    <div class="cell">4</div>
-    <div class="cell">5</div>
-    <div class="cell">6</div>
-    <div class="cell">7</div>
-    <div class="cell">8</div>
-    <div class="cell">9</div>
-  </div>
-
-  <div class="block">
-    <div class="cell">1</div>
-    <div class="cell">2</div>
-    <div class="cell">3</div>
-    <div class="cell">4</div>
-    <div class="cell">5</div>
-    <div class="cell">6</div>
-    <div class="cell">7</div>
-    <div class="cell">8</div>
-    <div class="cell">9</div>
-  </div>
-
-  <div class="block">
-    <div class="cell">1</div>
-    <div class="cell">2</div>
-    <div class="cell">3</div>
-    <div class="cell">4</div>
-    <div class="cell">5</div>
-    <div class="cell">6</div>
-    <div class="cell">7</div>
-    <div class="cell">8</div>
-    <div class="cell">9</div>
-  </div>
-
-  <div class="block">
-    <div class="cell">1</div>
-    <div class="cell">2</div>
-    <div class="cell">3</div>
-    <div class="cell">4</div>
-    <div class="cell">5</div>
-    <div class="cell">6</div>
-    <div class="cell">7</div>
-    <div class="cell">8</div>
-    <div class="cell">9</div>
-  </div>
+  {#each groupedGrid as block}
+    <div class="block">
+      {#each block as cell}
+        <div class="cell">{cell.value}</div>
+      {/each}
+    </div>
+  {/each}
 </div>
