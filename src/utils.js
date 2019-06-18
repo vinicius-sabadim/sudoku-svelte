@@ -10,8 +10,7 @@ const blocks3 = [
 
 export const generateGrid = (blockSize = 3) => {
   const elements = blockSize === 3 ? 81 : 16
-  const flattenGrid = Array(elements).fill(0)
-  return flattenGrid
+  return Array(elements).fill(0)
 }
 
 const shuffle = a => {
@@ -69,20 +68,17 @@ export const includeBlockInfo = (grid, blockSize = 3) => {
 }
 
 export const groupByBlock = grid => {
-  const newGrid = []
-
-  grid.forEach((cell, index) => {
-    // Because the blocks are starting with 1
+  return grid.reduce((acc, cell) => {
+    // The blocks starts at 1
     const block = cell.block - 1
 
-    if (newGrid[block]) {
-      newGrid[block].push(cell)
+    if (acc[block]) {
+      acc[block].push(cell)
     } else {
-      newGrid[block] = [cell]
+      acc[block] = [cell]
     }
-  })
-
-  return newGrid
+    return acc
+  }, [])
 }
 
 export const isLegal = (grid, position, number, blockSize = 3) => {
