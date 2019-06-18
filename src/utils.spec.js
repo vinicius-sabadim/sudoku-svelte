@@ -13,7 +13,7 @@ describe('Grid', () => {
   })
 
   test('should create a valid grid for 2x2', () => {
-    const grid = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    const grid = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     const filledGrid = utils.fillGrid(grid, 2)
     expect(utils.hasZeros(filledGrid)).toBe(false)
   })

@@ -15,37 +15,47 @@ export const generateGrid = (blockSize = 3) => {
   return flattenGrid
 }
 
+const shuffle = a => {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[a[i], a[j]] = [a[j], a[i]]
+  }
+  return a
+}
+
 export const fillGrid = (grid, blockSize = 3) => {
   const gridSize = blockSize === 3 ? 9 : 4
 
   const stack = []
   let currentIndex = 0
   let currentValue = grid[currentIndex]
-  let number = 0
+
+  const numbers = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9])
+  let numberIndex = 0
 
   while (hasZeros(grid)) {
     if (currentValue === 0) {
       if (
-        isLegal(grid, currentIndex, number, blockSize) &&
-        number <= gridSize
+        isLegal(grid, currentIndex, numbers[numberIndex], blockSize) &&
+        numberIndex < gridSize
       ) {
-        grid[currentIndex] = number
+        grid[currentIndex] = numbers[numberIndex]
         stack.push(currentIndex)
-        number = 0
+        numberIndex = -1
         currentIndex = currentIndex + 1
         currentValue = grid[currentIndex]
-      } else if (number > gridSize - 1) {
+      } else if (numberIndex > gridSize - 1) {
         grid[currentIndex] = 0
         currentIndex = stack.pop()
-        number = grid[currentIndex]
+        numberIndex = numbers.indexOf(grid[currentIndex])
         grid[currentIndex] = 0
       }
     } else {
       currentIndex = currentIndex + 1
       currentValue = grid[currentIndex]
-      number = 0
+      numberIndex = -1
     }
-    number = number + 1
+    numberIndex = numberIndex + 1
   }
   return grid
 }
