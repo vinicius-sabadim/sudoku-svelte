@@ -1,13 +1,12 @@
-let blocks2 = Array(2)
-  .fill([1, 1, 2, 2])
-  .flat()
-blocks2 = [...blocks2, Array(2).fill([3, 3, 4, 4])].flat(2)
+const blocks2 = [Array(2).fill([1, 1, 2, 2]), Array(2).fill([3, 3, 4, 4])].flat(
+  2
+)
 
-let blocks3 = Array(3)
-  .fill([1, 1, 1, 2, 2, 2, 3, 3, 3])
-  .flat()
-blocks3 = [...blocks3, Array(3).fill([4, 4, 4, 5, 5, 5, 6, 6, 6])].flat(2)
-blocks3 = [...blocks3, Array(3).fill([7, 7, 7, 8, 8, 8, 9, 9, 9])].flat(2)
+const blocks3 = [
+  Array(3).fill([1, 1, 1, 2, 2, 2, 3, 3, 3]),
+  Array(3).fill([4, 4, 4, 5, 5, 5, 6, 6, 6]),
+  Array(3).fill([7, 7, 7, 8, 8, 8, 9, 9, 9])
+].flat(2)
 
 export const generateGrid = (blockSize = 3) => {
   const elements = blockSize === 3 ? 81 : 16
