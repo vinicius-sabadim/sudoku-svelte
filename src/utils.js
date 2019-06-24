@@ -28,7 +28,7 @@ export const fillGrid = (grid, blockSize = 3) => {
   let currentIndex = 0
   let currentValue = grid[currentIndex]
 
-  const numbers = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9])
+  let numbers = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9])
   let numberIndex = 0
 
   while (hasZeros(grid)) {
@@ -39,6 +39,7 @@ export const fillGrid = (grid, blockSize = 3) => {
       ) {
         grid[currentIndex] = numbers[numberIndex]
         stack.push(currentIndex)
+        numbers = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9])
         numberIndex = -1
         currentIndex = currentIndex + 1
         currentValue = grid[currentIndex]
@@ -51,6 +52,7 @@ export const fillGrid = (grid, blockSize = 3) => {
     } else {
       currentIndex = currentIndex + 1
       currentValue = grid[currentIndex]
+      numbers = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9])
       numberIndex = -1
     }
     numberIndex = numberIndex + 1
