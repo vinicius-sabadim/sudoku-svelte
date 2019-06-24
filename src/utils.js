@@ -83,6 +83,25 @@ export const groupByBlock = grid => {
   }, [])
 }
 
+const numberOfCells = {
+  easy: 62,
+  medium: 53,
+  hard: 44,
+  veryHard: 35
+}
+
+export const applyGameDifficult = (difficult, grid) => {
+  const indexes = new Set()
+  while (indexes.size !== 81 - numberOfCells[difficult]) {
+    const randomIndex = Math.floor(Math.random() * 81)
+    indexes.add(randomIndex)
+  }
+  for (const index of indexes) {
+    grid[index] = null
+  }
+  return grid
+}
+
 export const isLegal = (grid, position, number, blockSize = 3) => {
   const usedNumbers = new Set()
 

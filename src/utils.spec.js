@@ -39,6 +39,36 @@ describe('Grid', () => {
   })
 })
 
+describe('applyGameDifficult', () => {
+  test('should remove elements for an easy game', () => {
+    const grid = utils.generateGrid()
+    const newGrid = utils.applyGameDifficult('easy', grid)
+    const gridWithDifficult = newGrid.filter(cell => cell !== null)
+    expect(gridWithDifficult.length).toBe(62)
+  })
+
+  test('should remove elements for a medium game', () => {
+    const grid = utils.generateGrid()
+    const newGrid = utils.applyGameDifficult('medium', grid)
+    const gridWithDifficult = newGrid.filter(cell => cell !== null)
+    expect(gridWithDifficult.length).toBe(53)
+  })
+
+  test('should remove elements for a hard game', () => {
+    const grid = utils.generateGrid()
+    const newGrid = utils.applyGameDifficult('hard', grid)
+    const gridWithDifficult = newGrid.filter(cell => cell !== null)
+    expect(gridWithDifficult.length).toBe(44)
+  })
+
+  test('should remove elements for a very hard game', () => {
+    const grid = utils.generateGrid()
+    const newGrid = utils.applyGameDifficult('veryHard', grid)
+    const gridWithDifficult = newGrid.filter(cell => cell !== null)
+    expect(gridWithDifficult.length).toBe(35)
+  })
+})
+
 describe('isLegal', () => {
   test('should allow a value when it is not present at the row', () => {
     const grid = [0, 0, 0, 0, 2, 1, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0]

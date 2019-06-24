@@ -3,7 +3,8 @@
 
   const grid = utils.generateGrid(3);
   const filledGrid = utils.fillGrid(grid, 3);
-  const gridWithBlockInfo = utils.includeBlockInfo(filledGrid, 3);
+  const gridWithDifficult = utils.applyGameDifficult("easy", filledGrid);
+  const gridWithBlockInfo = utils.includeBlockInfo(gridWithDifficult, 3);
   const groupedGrid = utils.groupByBlock(gridWithBlockInfo);
 </script>
 
@@ -14,12 +15,10 @@
     display: grid;
     grid-template-columns: auto auto auto;
     grid-gap: 6px;
-    height: 80vh;
     left: 50%;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 80vh;
   }
   .block {
     background-color: #ccc;
@@ -32,7 +31,10 @@
     background-color: white;
     display: flex;
     font-size: 2rem;
+    height: calc(80vh / 9);
     justify-content: center;
+    user-select: none;
+    width: calc(80vh / 9);
   }
 </style>
 
@@ -40,7 +42,7 @@
   {#each groupedGrid as block}
     <div class="block">
       {#each block as cell}
-        <div class="cell">{cell.value}</div>
+        <div class="cell">{cell.value ? cell.value : ''}</div>
       {/each}
     </div>
   {/each}
