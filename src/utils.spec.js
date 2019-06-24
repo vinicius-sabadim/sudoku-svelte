@@ -67,6 +67,13 @@ describe('applyGameDifficult', () => {
     const gridWithDifficult = newGrid.filter(cell => cell !== null)
     expect(gridWithDifficult.length).toBe(35)
   })
+
+  test('should remove elements for an insane game', () => {
+    const grid = utils.generateGrid()
+    const newGrid = utils.applyGameDifficult('insane', grid)
+    const gridWithDifficult = newGrid.filter(cell => cell !== null)
+    expect(gridWithDifficult.length).toBe(26)
+  })
 })
 
 describe('isLegal', () => {

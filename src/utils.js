@@ -65,7 +65,9 @@ export const includeBlockInfo = (grid, blockSize = 3) => {
 
   return grid.map((cell, index) => ({
     value: cell,
-    block: blocks[index]
+    block: blocks[index],
+    position: index,
+    readonly: !!cell
   }))
 }
 
@@ -87,7 +89,8 @@ const numberOfCells = {
   easy: 62,
   medium: 53,
   hard: 44,
-  veryHard: 35
+  veryHard: 35,
+  insane: 26
 }
 
 export const applyGameDifficult = (difficult, grid) => {

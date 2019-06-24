@@ -1,11 +1,27 @@
 <script>
+  import CellInput from "./CellInput.svelte";
   import * as utils from "./utils";
 
   const grid = utils.generateGrid(3);
   const filledGrid = utils.fillGrid(grid, 3);
-  const gridWithDifficult = utils.applyGameDifficult("easy", filledGrid);
-  const gridWithBlockInfo = utils.includeBlockInfo(gridWithDifficult, 3);
-  const groupedGrid = utils.groupByBlock(gridWithBlockInfo);
+  const gridWithDifficult = utils.applyGameDifficult("insane", filledGrid);
+  let gridWithBlockInfo = utils.includeBlockInfo(gridWithDifficult, 3);
+  $: groupedGrid = utils.groupByBlock(gridWithBlockInfo);
+
+  const handleChange = ({ detail: { value, position } }) => {
+    const isLegal = utils.isLegal(gridWithDifficult, position, value);
+    gridWithBlockInfo = gridWithBlockInfo.map(cell => {
+      if (cell.position !== position) {
+        return cell;
+      }
+
+      return {
+        ...cell,
+        value: value !== 0 ? value : null,
+        error: !isLegal
+      };
+    });
+  };
 </script>
 
 <style>
@@ -42,7 +58,9 @@
   {#each groupedGrid as block}
     <div class="block">
       {#each block as cell}
-        <div class="cell">{cell.value ? cell.value : ''}</div>
+        <div class="cell">
+          <CellInput on:change={handleChange} {cell} />
+        </div>
       {/each}
     </div>
   {/each}
