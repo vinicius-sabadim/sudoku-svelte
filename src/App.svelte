@@ -48,6 +48,7 @@
   :global(body) {
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
       "Lucida Sans", Arial, sans-serif;
+    letter-spacing: 2px;
   }
   .container {
     display: flex;

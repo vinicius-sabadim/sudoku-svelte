@@ -47,12 +47,14 @@
   }
 
   .active {
-    background-color: aquamarine;
+    background-color: burlywood;
+    color: white;
+    font-weight: bold;
   }
 
   .victory {
     animation: pulse 0.5s alternate infinite;
-    color: darkcyan;
+    color: brown;
     font-size: 2rem;
     font-weight: bold;
     margin: 2rem 0;
