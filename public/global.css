@@ -7,6 +7,9 @@
 html,
 body {
   background-color: #fafafa;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
+  letter-spacing: 2px;
   position: relative;
   height: 100vh;
   width: 100%;
