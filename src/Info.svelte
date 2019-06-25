@@ -21,7 +21,7 @@
 
 <style>
   .container {
-    margin-right: 100px;
+    margin-right: 50px;
   }
 
   h1 {
@@ -29,11 +29,11 @@
     margin: 1rem 0;
   }
 
-  ul {
+  ul.level-menu {
     width: 200px;
   }
 
-  li {
+  .level-menu li {
     border-bottom: 1px solid #555;
     cursor: pointer;
     padding: 10px;
@@ -41,8 +41,22 @@
     user-select: none;
   }
 
-  li:hover {
+  .level-menu li:hover {
     padding-left: 20px;
+  }
+
+  .hint-container {
+    margin-top: 40px;
+    width: 250px;
+  }
+
+  .hint-container h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .hint-container li {
+    padding: 5px 0;
   }
 
   .active {
@@ -72,7 +86,7 @@
 
 <div class="container">
   <h1>Change level</h1>
-  <ul>
+  <ul class="level-menu">
     {#each levels as level}
       <li
         class={level === selectedDifficult ? 'active' : ''}
@@ -81,6 +95,14 @@
       </li>
     {/each}
   </ul>
+
+  <div class="hint-container">
+    <h2>Hints</h2>
+    <ul>
+      <li>Use the number 0 to erase a cell.</li>
+      <li>Use ctrl + number to fill a cell using a pencil.</li>
+    </ul>
+  </div>
 
   {#if isVictory}
     <p class="victory">Victory :)</p>

@@ -105,6 +105,9 @@
     grid-area: option5;
   }
   .option6 {
+    grid-area: option6;
+  }
+  .option7 {
     grid-area: option7;
   }
   .option8 {
