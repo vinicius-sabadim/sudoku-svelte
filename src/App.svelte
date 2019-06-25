@@ -14,7 +14,7 @@
     gridWithBlockInfo = utils.includeBlockInfo(gridWithDifficult, 3);
   };
 
-  const handleChange = ({ detail: { value, position } }) => {
+  const handlePen = ({ detail: { value, position } }) => {
     const isLegal = utils.isLegal(gridWithDifficult, position, value);
     gridWithBlockInfo = gridWithBlockInfo.map(cell => {
       if (cell.position !== position) {
@@ -28,6 +28,25 @@
       };
     });
     gridWithDifficult[position] = value;
+  };
+
+  const handlePencil = ({ detail: { value, position } }) => {
+    if (value === 0) return;
+
+    gridWithBlockInfo = gridWithBlockInfo.map(cell => {
+      if (cell.position !== position) {
+        return cell;
+      }
+
+      const isAlreadyThere = cell.pencil.has(value);
+      if (isAlreadyThere) {
+        cell.pencil.delete(value);
+      } else {
+        cell.pencil.add(value);
+      }
+
+      return cell;
+    });
   };
 
   const handleChangeDifficult = ({ detail }) => {
@@ -70,6 +89,7 @@
     font-size: 2rem;
     height: calc(80vh / 9);
     justify-content: center;
+    position: relative;
     user-select: none;
     width: calc(80vh / 9);
   }
@@ -85,7 +105,7 @@
       <div class="block">
         {#each block as cell}
           <div class="cell">
-            <Cell on:change={handleChange} {cell} />
+            <Cell on:pen={handlePen} on:pencil={handlePencil} {cell} />
           </div>
         {/each}
       </div>

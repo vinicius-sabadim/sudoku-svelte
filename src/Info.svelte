@@ -36,7 +36,6 @@
   li {
     border-bottom: 1px solid #555;
     cursor: pointer;
-    list-style: none;
     padding: 10px;
     transition: all 0.3s;
     user-select: none;

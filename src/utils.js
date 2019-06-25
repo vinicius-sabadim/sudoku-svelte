@@ -67,7 +67,8 @@ export const includeBlockInfo = (grid, blockSize = 3) => {
     value: cell,
     block: blocks[index],
     position: index,
-    readonly: !!cell
+    readonly: !!cell,
+    pencil: new Set()
   }))
 }
 
