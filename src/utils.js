@@ -154,3 +154,11 @@ export const getAvailableNumber = (restrictions, blockSize = 3) => {
   }
   return value
 }
+
+export const getErrors = grid => {
+  return grid.filter(cell => cell.error).length
+}
+
+export const getMissingValues = (grid, errors) => {
+  return grid.filter(cell => cell.value === null).length + errors
+}

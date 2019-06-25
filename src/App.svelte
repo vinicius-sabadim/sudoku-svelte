@@ -36,9 +36,8 @@
 
   $: groupedGrid = utils.groupByBlock(gridWithBlockInfo);
 
-  $: errors = gridWithBlockInfo.filter(cell => cell.error).length;
-  $: missingValues =
-    gridWithBlockInfo.filter(cell => cell.value === null).length + errors;
+  $: errors = utils.getErrors(gridWithBlockInfo);
+  $: missingValues = utils.getMissingValues(gridWithBlockInfo, errors);
   $: isVictory = missingValues === 0;
 
   startGame(selectedDifficult);

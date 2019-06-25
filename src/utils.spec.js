@@ -132,3 +132,22 @@ describe('getAvailableNumber', () => {
     expect(restrictions.has(number)).toBe(false)
   })
 })
+
+describe('getErrors', () => {
+  test('should return errors when there is any', () => {
+    const grid = utils.generateGrid()
+    grid[0] = { error: true }
+    const errors = utils.getErrors(grid)
+    expect(errors).toBe(1)
+  })
+})
+
+describe('getMissingValues', () => {
+  test('should return missing values considering errors', () => {
+    const grid = utils.generateGrid()
+    const gridWithDifficult = utils.applyGameDifficult('easy', grid)
+    const gridWithBlockInfo = utils.includeBlockInfo(gridWithDifficult, 3)
+    const missingValues = utils.getMissingValues(gridWithBlockInfo, 2)
+    expect(missingValues).toBe(21)
+  })
+})
