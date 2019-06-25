@@ -1,6 +1,7 @@
 <script>
   import { createEventDispatcher } from "svelte";
 
+  export let isVictory;
   export let selectedDifficult;
 
   const dispatch = createEventDispatcher();
@@ -48,6 +49,24 @@
   .active {
     background-color: aquamarine;
   }
+
+  .victory {
+    animation: pulse 0.5s alternate infinite;
+    color: darkcyan;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 2rem 0;
+    padding: 0 10px;
+  }
+
+  @keyframes pulse {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(0.9);
+    }
+  }
 </style>
 
 <div class="container">
@@ -61,4 +80,8 @@
       </li>
     {/each}
   </ul>
+
+  {#if isVictory}
+    <p class="victory">Victory :)</p>
+  {/if}
 </div>

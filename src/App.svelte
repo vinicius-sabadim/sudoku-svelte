@@ -3,16 +3,14 @@
   import Cell from "./Cell.svelte";
   import * as utils from "./utils";
 
-  let selectedDifficult = "insane";
+  let selectedDifficult = "hard";
+  let gridWithDifficult;
   let gridWithBlockInfo;
 
   const startGame = difficult => {
     const grid = utils.generateGrid(3);
     const filledGrid = utils.fillGrid(grid, 3);
-    const gridWithDifficult = utils.applyGameDifficult(
-      selectedDifficult,
-      filledGrid
-    );
+    gridWithDifficult = utils.applyGameDifficult(selectedDifficult, filledGrid);
     gridWithBlockInfo = utils.includeBlockInfo(gridWithDifficult, 3);
   };
 
@@ -37,6 +35,11 @@
   };
 
   $: groupedGrid = utils.groupByBlock(gridWithBlockInfo);
+
+  $: errors = gridWithBlockInfo.filter(cell => cell.error).length;
+  $: missingValues =
+    gridWithBlockInfo.filter(cell => cell.value === null).length + errors;
+  $: isVictory = missingValues === 0;
 
   startGame(selectedDifficult);
 </script>
@@ -77,7 +80,10 @@
 </style>
 
 <div class="container">
-  <Info on:change-difficult={handleChangeDifficult} {selectedDifficult} />
+  <Info
+    on:change-difficult={handleChangeDifficult}
+    {isVictory}
+    {selectedDifficult} />
   <div class="grid">
     {#each groupedGrid as block}
       <div class="block">
