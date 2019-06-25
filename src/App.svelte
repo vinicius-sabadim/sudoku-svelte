@@ -1,5 +1,5 @@
 <script>
-  import CellInput from "./CellInput.svelte";
+  import Cell from "./Cell.svelte";
   import * as utils from "./utils";
 
   const grid = utils.generateGrid(3);
@@ -59,7 +59,7 @@
     <div class="block">
       {#each block as cell}
         <div class="cell">
-          <CellInput on:change={handleChange} {cell} />
+          <Cell on:change={handleChange} {cell} />
         </div>
       {/each}
     </div>

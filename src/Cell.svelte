@@ -8,7 +8,7 @@
     const value = parseInt(e.key);
 
     // 0 will be used to remove a value from cell
-    if (value !== NaN) {
+    if (Number.isInteger(value)) {
       dispatch("change", {
         value: parseInt(value, 10),
         position: cell.position
@@ -48,7 +48,8 @@
 
 <input
   bind:value={cell.value}
-  disabled={cell.readonly}
   class={cell.error ? 'hasError' : ''}
+  disabled={cell.readonly}
+  pattern="a"
   type="text"
   on:keydown={handleChange} />
