@@ -27,6 +27,7 @@
         error: !isLegal
       };
     });
+    gridWithDifficult[position] = value;
   };
 
   const handleChangeDifficult = ({ detail }) => {
@@ -68,7 +69,7 @@
   }
   .cell {
     align-items: center;
-    background-color: white;
+    background-color: lightyellow;
     display: flex;
     font-size: 2rem;
     height: calc(80vh / 9);

@@ -24,7 +24,7 @@
     height: 100%;
     margin: 0;
     text-align: center;
-    text-shadow: 0 0 0 black;
+    text-shadow: 0 0 0 darkslategray;
     user-select: none;
     width: 100%;
   }
