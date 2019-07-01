@@ -151,3 +151,86 @@ describe('getMissingValues', () => {
     expect(missingValues).toBe(21)
   })
 })
+
+describe('validateKeyInteraction', () => {
+  describe('on a valid position', () => {
+    test('should allow when arrow up key is pressed', () => {
+      const [isValid, action] = utils.validateKeyInteraction('ArrowUp', 32)
+      expect(isValid).toBe(true)
+      expect(action).toBe('up')
+    })
+
+    test('should allow when arrow down key is pressed', () => {
+      const [isValid, action] = utils.validateKeyInteraction('ArrowDown', 32)
+      expect(isValid).toBe(true)
+      expect(action).toBe('down')
+    })
+
+    test('should allow when arrow left key is pressed', () => {
+      const [isValid, action] = utils.validateKeyInteraction('ArrowLeft', 32)
+      expect(isValid).toBe(true)
+      expect(action).toBe('left')
+    })
+
+    test('should allow when arrow up right is pressed', () => {
+      const [isValid, action] = utils.validateKeyInteraction('ArrowRight', 32)
+      expect(isValid).toBe(true)
+      expect(action).toBe('right')
+    })
+  })
+
+  describe('on an invalid position', () => {
+    test('should allow when arrow up key is pressed', () => {
+      const [isValid, _] = utils.validateKeyInteraction('ArrowUp', 0)
+      expect(isValid).toBe(false)
+    })
+
+    test('should allow when arrow down key is pressed', () => {
+      const [isValid, _] = utils.validateKeyInteraction('ArrowDown', 80)
+      expect(isValid).toBe(false)
+    })
+
+    test('should allow when arrow left key is pressed', () => {
+      const [isValid, _] = utils.validateKeyInteraction('ArrowLeft', 0)
+      expect(isValid).toBe(false)
+    })
+
+    test('should allow when arrow up right is pressed', () => {
+      const [isValid, _] = utils.validateKeyInteraction('ArrowRight', 8)
+      expect(isValid).toBe(false)
+    })
+  })
+
+  test('should allow when a digit is pressed', () => {
+    const [isValid, action] = utils.validateKeyInteraction('5', 0)
+    expect(isValid).toBe(true)
+    expect(action).toBe('digit')
+  })
+
+  test('should not allow when a letter is pressed', () => {
+    const [isValid, _] = utils.validateKeyInteraction('a', 0)
+    expect(isValid).toBe(false)
+  })
+})
+
+describe('getNewActivePosition', () => {
+  test('for the down action', () => {
+    const newPosition = utils.getNewActivePosition(0, 'down')
+    expect(newPosition).toBe(9)
+  })
+
+  test('for the up action', () => {
+    const newPosition = utils.getNewActivePosition(9, 'up')
+    expect(newPosition).toBe(0)
+  })
+
+  test('for the left action', () => {
+    const newPosition = utils.getNewActivePosition(8, 'left')
+    expect(newPosition).toBe(7)
+  })
+
+  test('for the right action', () => {
+    const newPosition = utils.getNewActivePosition(4, 'right')
+    expect(newPosition).toBe(5)
+  })
+})

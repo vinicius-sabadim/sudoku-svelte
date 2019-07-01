@@ -2,7 +2,7 @@
   import { createEventDispatcher } from "svelte";
 
   export let cell;
-  export let activeCellUsingKeyboard;
+  export let activePosition;
 
   const options = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -128,7 +128,7 @@
   <!-- {cell.position} -->
   <input
     bind:value={cell.value}
-    class={`${cell.error ? 'hasError' : ''} ${cell.position === activeCellUsingKeyboard ? 'keyboardActive' : ''}`}
+    class={`${cell.error ? 'hasError' : ''} ${cell.position === activePosition ? 'keyboardActive' : ''}`}
     disabled={cell.readonly}
     type="text"
     on:keydown|preventDefault={handleChange} />

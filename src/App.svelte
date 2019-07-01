@@ -6,7 +6,7 @@
   let selectedDifficult = "hard";
   let gridWithDifficult;
   let gridWithBlockInfo;
-  let activeCellUsingKeyboard = 0;
+  let activePosition = 0;
 
   const startGame = difficult => {
     const grid = utils.generateGrid(3);
@@ -65,26 +65,25 @@
 
   window.addEventListener("keydown", e => {
     e.preventDefault();
+    const { key, ctrlKey } = e;
 
-    const { key, code, ctrlKey } = e;
-    const cell = gridWithBlockInfo[activeCellUsingKeyboard];
-    const value = parseInt(key, 10);
+    const [isValid, action] = utils.validateKeyInteraction(key, activePosition);
+    if (!isValid) return;
 
-    if (code === "ArrowDown" && activeCellUsingKeyboard < 72) {
-      activeCellUsingKeyboard += 9;
-    } else if (code === "ArrowUp" && activeCellUsingKeyboard > 8) {
-      activeCellUsingKeyboard -= 9;
-    } else if (code === "ArrowLeft" && activeCellUsingKeyboard % 9 > 0) {
-      activeCellUsingKeyboard -= 1;
-    } else if (code === "ArrowRight" && activeCellUsingKeyboard % 9 < 8) {
-      activeCellUsingKeyboard += 1;
-    } else if (Number.isInteger(value)) {
+    if (action !== "digit") {
+      activePosition = utils.getNewActivePosition(activePosition, action);
+    } else {
+      const cell = gridWithBlockInfo[activePosition];
       if (cell.readonly) return;
+
       const event = {
-        detail: { value: parseInt(key, 10), position: activeCellUsingKeyboard }
+        detail: {
+          value: parseInt(key, 10),
+          position: activePosition
+        }
       };
-      if (ctrlKey) handlePencil(event);
-      else handlePen(event);
+
+      ctrlKey ? handlePencil(event) : handlePen(event);
     }
   });
 </script>
@@ -135,7 +134,7 @@
               on:pen={handlePen}
               on:pencil={handlePencil}
               {cell}
-              {activeCellUsingKeyboard} />
+              {activePosition} />
           </div>
         {/each}
       </div>

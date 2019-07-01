@@ -163,3 +163,33 @@ export const getErrors = grid => {
 export const getMissingValues = (grid, errors) => {
   return grid.filter(cell => cell.value === null).length + errors
 }
+
+export const validateKeyInteraction = (key, position) => {
+  const value = parseInt(key, 10)
+
+  if (key === 'ArrowDown' && position < 72) {
+    return [true, 'down']
+  } else if (key === 'ArrowUp' && position > 8) {
+    return [true, 'up']
+  } else if (key === 'ArrowLeft' && position % 9 > 0) {
+    return [true, 'left']
+  } else if (key === 'ArrowRight' && position % 9 < 8) {
+    return [true, 'right']
+  } else if (Number.isInteger(value)) {
+    return [true, 'digit']
+  }
+
+  return [false, null]
+}
+
+export const getNewActivePosition = (position, action) => {
+  if (action === 'down') {
+    return position + 9
+  } else if (action === 'up') {
+    return position - 9
+  } else if (action === 'left') {
+    return position - 1
+  } else if (action === 'right') {
+    return position + 1
+  }
+}
