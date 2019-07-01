@@ -63,7 +63,10 @@
 
   startGame(selectedDifficult);
 
-  window.addEventListener("keydown", ({ code, key }) => {
+  window.addEventListener("keydown", e => {
+    e.preventDefault();
+
+    const { key, code, ctrlKey } = e;
     if (code === "ArrowDown" && activeCellUsingKeyboard < 72) {
       activeCellUsingKeyboard += 9;
     } else if (code === "ArrowUp" && activeCellUsingKeyboard > 8) {
@@ -73,9 +76,11 @@
     } else if (code === "ArrowRight" && activeCellUsingKeyboard % 9 < 8) {
       activeCellUsingKeyboard += 1;
     } else if (code.substring(0, 5) === "Digit") {
-      handlePen({
+      const event = {
         detail: { value: parseInt(key, 10), position: activeCellUsingKeyboard }
-      });
+      };
+      if (ctrlKey) handlePencil(event);
+      else handlePen(event);
     }
   });
 </script>

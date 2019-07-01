@@ -120,7 +120,7 @@
   }
 
   .keyboardActive {
-    background-color: navajowhite !important;
+    background-color: aliceblue !important;
   }
 </style>
 
