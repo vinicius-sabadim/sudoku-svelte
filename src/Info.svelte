@@ -100,6 +100,7 @@
   <div class="hint-container">
     <h2>Hints</h2>
     <ul>
+      <li>Click on a cell to highlight the same values.</li>
       <li>Arrow keys navigate through the cells.</li>
       <li>Number 0 erase a cell.</li>
       <li>Ctrl + number fill a cell using a pencil.</li>
