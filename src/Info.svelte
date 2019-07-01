@@ -56,7 +56,8 @@
   }
 
   .hint-container li {
-    padding: 5px 0;
+    line-height: 1.2;
+    margin-bottom: 20px;
   }
 
   .active {
@@ -99,8 +100,9 @@
   <div class="hint-container">
     <h2>Hints</h2>
     <ul>
-      <li>Use the number 0 to erase a cell.</li>
-      <li>Use ctrl + number to fill a cell using a pencil.</li>
+      <li>Arrow keys navigate through the cells.</li>
+      <li>Number 0 erase a cell.</li>
+      <li>Ctrl + number fill a cell using a pencil.</li>
     </ul>
   </div>
 
