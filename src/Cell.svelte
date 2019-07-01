@@ -2,6 +2,8 @@
   import { createEventDispatcher } from "svelte";
 
   export let cell;
+  export let activeCellUsingKeyboard;
+
   const options = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   const dispatch = createEventDispatcher();
@@ -116,12 +118,17 @@
   .option9 {
     grid-area: option9;
   }
+
+  .keyboardActive {
+    background-color: navajowhite !important;
+  }
 </style>
 
 <div class="container" on:click={putFocus}>
+  <!-- {cell.position} -->
   <input
     bind:value={cell.value}
-    class={cell.error ? 'hasError' : ''}
+    class={`${cell.error ? 'hasError' : ''} ${cell.position === activeCellUsingKeyboard ? 'keyboardActive' : ''}`}
     disabled={cell.readonly}
     type="text"
     on:keydown|preventDefault={handleChange} />
@@ -129,7 +136,7 @@
     <ul class="pencil-container">
       {#each options as option}
         <li
-          class={`option option${option} ${cell.pencil.has(option) ? 'visibleOption' : ''} `}>
+          class={`option option${option} ${cell.pencil.has(option) ? 'visibleOption' : ''}`}>
            {option}
         </li>
       {/each}

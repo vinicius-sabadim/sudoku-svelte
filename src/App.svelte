@@ -6,6 +6,7 @@
   let selectedDifficult = "hard";
   let gridWithDifficult;
   let gridWithBlockInfo;
+  let activeCellUsingKeyboard = 0;
 
   const startGame = difficult => {
     const grid = utils.generateGrid(3);
@@ -61,6 +62,22 @@
   $: isVictory = missingValues === 0;
 
   startGame(selectedDifficult);
+
+  window.addEventListener("keydown", ({ code, key }) => {
+    if (code === "ArrowDown" && activeCellUsingKeyboard < 72) {
+      activeCellUsingKeyboard += 9;
+    } else if (code === "ArrowUp" && activeCellUsingKeyboard > 8) {
+      activeCellUsingKeyboard -= 9;
+    } else if (code === "ArrowLeft" && activeCellUsingKeyboard % 9 > 0) {
+      activeCellUsingKeyboard -= 1;
+    } else if (code === "ArrowRight" && activeCellUsingKeyboard % 9 < 8) {
+      activeCellUsingKeyboard += 1;
+    } else if (code.substring(0, 5) === "Digit") {
+      handlePen({
+        detail: { value: parseInt(key, 10), position: activeCellUsingKeyboard }
+      });
+    }
+  });
 </script>
 
 <style>
@@ -105,7 +122,11 @@
       <div class="block">
         {#each block as cell}
           <div class="cell">
-            <Cell on:pen={handlePen} on:pencil={handlePencil} {cell} />
+            <Cell
+              on:pen={handlePen}
+              on:pencil={handlePencil}
+              {cell}
+              {activeCellUsingKeyboard} />
           </div>
         {/each}
       </div>
