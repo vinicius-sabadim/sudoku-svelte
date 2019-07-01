@@ -7,6 +7,7 @@
   let gridWithDifficult;
   let gridWithBlockInfo;
   let activePosition = 0;
+  let highlightValue = null;
 
   const startGame = difficult => {
     const grid = utils.generateGrid(3);
@@ -25,7 +26,7 @@
       return {
         ...cell,
         value: value !== 0 ? value : null,
-        error: !isLegal
+        error: value === 0 ? false : !isLegal
       };
     });
     gridWithDifficult[position] = value;
@@ -53,6 +54,18 @@
   const handleChangeDifficult = ({ detail }) => {
     selectedDifficult = detail;
     startGame(selectedDifficult);
+  };
+
+  const handleChangeNavigation = ({ detail: value }) => {
+    activePosition = value;
+  };
+
+  const handleHighlight = ({ detail: value }) => {
+    if (highlightValue === value) {
+      highlightValue = null;
+    } else {
+      highlightValue = value;
+    }
   };
 
   $: groupedGrid = utils.groupByBlock(gridWithBlockInfo);
@@ -109,7 +122,6 @@
   }
   .cell {
     align-items: center;
-    background-color: lightyellow;
     display: flex;
     font-size: 2rem;
     height: calc(80vh / 9);
@@ -131,10 +143,13 @@
         {#each block as cell}
           <div class="cell">
             <Cell
+              on:change-navigation={handleChangeNavigation}
+              on:highlight={handleHighlight}
               on:pen={handlePen}
               on:pencil={handlePencil}
               {cell}
-              {activePosition} />
+              {activePosition}
+              {highlightValue} />
           </div>
         {/each}
       </div>

@@ -3,66 +3,49 @@
 
   export let cell;
   export let activePosition;
+  export let highlightValue;
 
   const options = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   const dispatch = createEventDispatcher();
-  const handleChange = e => {
-    const value = parseInt(e.key);
-    const isCtrlPressed = e.ctrlKey;
 
-    // 0 will be used to remove a value from cell
-    if (Number.isInteger(value)) {
-      if (!isCtrlPressed) {
-        dispatch("pen", {
-          value: parseInt(value, 10),
-          position: cell.position
-        });
-      } else {
-        dispatch("pencil", {
-          value: parseInt(value, 10),
-          position: cell.position
-        });
-      }
-    }
-  };
-
-  const putFocus = e => {
+  const cellClicked = e => {
     const element = e.currentTarget.querySelector("input");
     element.focus();
+
+    dispatch("highlight", cell.value);
+    dispatch("change-navigation", cell.position);
   };
 </script>
 
 <style>
   input {
+    background-color: transparent;
     border: none;
     color: transparent;
     height: 100%;
     margin: 0;
+    outline: none;
     text-align: center;
     text-shadow: 0 0 0 darkslategray;
     user-select: none;
     width: 100%;
   }
 
-  input:focus {
-    background-color: whitesmoke;
-    border: none;
-    outline: none;
-  }
-
   input:disabled {
     background-color: inherit;
   }
 
-  .hasError,
-  .hasError:focus {
-    background-color: lavenderblush;
-    text-shadow: 0 0 0 salmon;
-  }
-
   .container {
     height: 100%;
+  }
+
+  .readOnly {
+    background-color: lightyellow;
+  }
+
+  .notReadOnly {
+    background-color: white;
   }
 
   .pencil-container {
@@ -119,19 +102,36 @@
     grid-area: option9;
   }
 
+  .hasError input {
+    background-color: lavenderblush;
+    text-shadow: 0 0 0 salmon;
+  }
+
   .keyboardActive {
-    background-color: aliceblue !important;
+    background-color: aliceblue;
+  }
+
+  .keyboardActive input {
+    background-color: aliceblue;
+  }
+
+  .highlight {
+    background-color: lightcyan;
+  }
+
+  .highlight input {
+    background-color: lightcyan;
   }
 </style>
 
-<div class="container" on:click={putFocus}>
-  <!-- {cell.position} -->
-  <input
-    bind:value={cell.value}
-    class={`${cell.error ? 'hasError' : ''} ${cell.position === activePosition ? 'keyboardActive' : ''}`}
-    disabled={cell.readonly}
-    type="text"
-    on:keydown|preventDefault={handleChange} />
+<div
+  class={`container
+  ${cell.readonly ? 'readOnly' : 'notReadOnly'}
+  ${cell.error ? 'hasError' : ''}
+  ${cell.position === activePosition ? 'keyboardActive' : ''}
+  ${highlightValue && cell.value === highlightValue ? 'highlight' : ''}`}
+  on:click={cellClicked}>
+  <input bind:value={cell.value} disabled={cell.readonly} type="text" />
   {#if !cell.value}
     <ul class="pencil-container">
       {#each options as option}
